@@ -1,0 +1,23 @@
+[user]
+	name = Patrick M. Niedzielski
+	email = PatrickNiedzielski@gmail.com
+	signingkey = DEBFA176
+[core]
+	editor = emacs -nw
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+	page = true
+[alias]
+	prettylog = log --oneline --abbrev-commit --decorate --graph
+	gpglog = log --oneline --show-signature
+[push]
+	default = simple
+[commit]
+	template = ~/.gitmessage
+	gpgsign = true
+[merge]
+	conflictstyle = diff3
+	log = true

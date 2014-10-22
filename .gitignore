@@ -1,0 +1,7 @@
+.emacs.d/pn-config.el
+.emacs.d/.org-id-locations
+.emacs.d/.cask
+.emacs.d/backups
+.emacs.d/elpa
+.emacs.d/auto-save-list
+.emacs.d/ac-comphist.dat

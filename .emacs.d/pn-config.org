@@ -1,0 +1,439 @@
++TITLE:      Emacs 24 Configuration File
+#+AUTHOR:    Patrick Michael Niedzielski
+#+EMAIL:     PatrickNiedzielski@gmail.com
+
+#+BABEL: :cache yes
+#+LATEX_HEADER: \usepackage{parskip}
+#+LATEX_HEADER: \usepackage{inconsolata}
+#+PROPERTY: header-args :tangle yes :comments no
+
+* Org-mode Emacs Configuration
+  This org-mode file contains Patrick M. Niedzielski's Emacs configuration,
+  written in a [[https://en.wikipedia.org/wiki/Literate_programming][Literate Programming]] style.  The configuration targets GNU Emacs
+  24 and, although cross-platform, does not support any other version of GNU
+  Emacs or any other Emacs editor (such as XEmacs).
+
+** License 
+   Copyright © 2014, Patrick M. Niedzielski.
+
+   The following license applies both to this Org file and to the corresponding
+   Emacs configuration file that can be generated from this file (as well as
+   any other derivative works).
+
+   #+name: license
+   #+begin_src emacs-lisp :tangle no
+     ;; This program is free software: you can redistribute it and/or
+     ;; modify it under the terms of the GNU General Public License as
+     ;; published by the Free Software Foundation, either version 3 of the
+     ;; License, or (at your option) any later version.
+     ;;
+     ;; This program is distributed in the hope that it will be useful, but
+     ;; WITHOUT ANY WARRANTY; without even the implied warranty of
+     ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+     ;; General Public License for more details.
+     ;;
+     ;; You should have received a copy of the GNU General Public License
+     ;; along with this program.  If not, see
+     ;; <http://www.gnu.org/licenses/>.
+   #+end_src
+
+** How This Works
+   This Emacs configuration is based on [[http://orgmode.org/worg/org-contrib/babel/intro.][Org Babel]], which allows source code
+   blocks to live inside an org-mode document; the org-mode document can then
+   be *woven* into an output document format (such as HTML or LaTeX) that
+   describes the source code and *tangled* into an output source file (in this
+   case, Emacs Lisp) that can be run.  Our actual =init.el= file is a simple
+   stub that tangles this org-mode file and then executes it.
+
+   The tangled file should have the license text and a note reminding us to
+   modify the org-mode file instead of the tangled source file.
+
+   #+begin_src emacs-lisp :noweb yes
+     ;;; pn-config.el --- Tangled source file describing Emacs Configuration
+
+     <<license>>
+
+     ;; This source file has been generated from an org-mode file.
+     ;; Modifications should be performed on the org-mode file, when
+     ;; possible.
+
+   #+end_src
+
+* Package Installation and Dependencies
+** =package.el= Configuration
+   Most of our packages we install using =package.el=, which is bundled with
+   Emacs 24.  There are three major package repositories for Emacs packages; we
+   use the first two listed here.
+   - ELPA :: The repository for GNU-sanctioned packages
+   - MELPA :: Contains the largest selection of packages and is built directly
+              from source in the package's VCS.
+   - Marmalade :: Packages are uploaded by users and so tend to be at stable
+                  (albeit often old) versions.
+
+   We do not use Marmalade because it often has the same packages as MELPA, only
+   with older versions.  This can sometimes lead to conflicts that we want to
+   avoid.
+
+   #+begin_src emacs-lisp
+     (require 'package)
+     (setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
+                              ("melpa" . "http://melpa.milkbox.net/packages/")))
+   #+end_src
+
+   We want all our installed packages to be in one place, so we put them in the
+   =elpa= directory under our =.emacs.d= directory.
+
+   #+begin_src emacs-lisp
+     (setq package-user-dir (concat user-emacs-directory "elpa"))
+   #+end_src
+
+   We want to make sure that the packages are not activated immediately at
+   startup.
+
+   #+begin_src emacs-lisp
+     (setq package-enable-at-startup nil)
+   #+end_src
+
+   Finally, we start up =package.el=.
+
+   #+begin_src emacs-lisp
+     (package-initialize)
+   #+end_src
+
+** Cask
+   We take advantage of Cask to pre-install our packages.
+
+** =req-package= Configuration
+   We use =req-package= to automatically install our packages and to
+   track dependencies between them.
+
+   #+begin_src emacs-lisp
+     (require 'req-package)
+   #+end_src
+
+* Global Customization
+** User Configuration
+   Set my name and (public, personal) email address.
+
+   #+begin_src emacs-lisp
+     (setq user-full-name "Patrick M. Niedzielski"
+           user-mail-address "PatrickNiedzielski@gmail.com")
+   #+end_src
+
+   For passwords, etc, we store them in an =~/.authinfo.gpg= file.  The GPG
+   decryption is handled in the [[sec:easypgp][EasyPGP]] section, but we need to teach Emacs how
+   to load these sorts of files:
+
+   #+begin_src emacs-lisp
+     (req-package netrc)
+   #+end_src
+
+** Custom File
+   By default, Emacs modifies our =init.el= file to save customizations made
+   with the /Customize/ mode.  We don't want to mess up our =init.el= file, so
+   we keep these customizations in a different file.
+
+   #+begin_src emacs-lisp
+     (setq custom-file (concat user-emacs-directory "custom.el"))
+     (load custom-file)
+   #+end_src
+
+** Language Settings
+   We want to use Unicode by default, and UTF-8 is best on Unix.
+
+   #+begin_src emacs-lisp
+     (set-language-environment "UTF-8")
+   #+end_src
+
+** Backups
+   Emacs places backups in the same directory as the normal file by default.
+   This is almost certainly not what we want, so we put them in a separate
+   directory under our user directory.
+
+   #+begin_src emacs-lisp
+     (setq backup-directory-alist
+           `((".*" . ,(concat user-emacs-directory "backups")))
+           auto-save-file-name-transforms
+           `((".*" ,(concat user-emacs-directory "backups") t)))
+   #+end_src
+
+** GUI
+   We remove the GUI elements that just take up space or are annoying.
+
+   #+begin_src emacs-lisp
+     (dolist (mode
+              '(menu-bar-mode
+                tool-bar-mode
+                scroll-bar-mode
+                tooltip-mode
+                blink-cursor-mode))
+       (funcall mode 0))
+     #+end_src
+
+   We also don't want to see a startup screen.
+
+   #+begin_src emacs-lisp
+     (setq-default inhibit-startup-message t)
+   #+end_src
+
+   We do, though, want the line and column numbers to be displayed in the
+   modeline.
+
+   #+begin_src emacs-lisp
+     (line-number-mode 1)
+     (column-number-mode 1)
+   #+end_src
+
+   For my main Emacs window, I use a three column layout.
+
+   #+begin_src emacs-lisp
+;     (req-package window-layout
+;                  :config (setq default-wm
+;                                (wlf:layout
+;                                  '(| (:left-size 80)
+;                                      main-left
+;                                      (| (:left-size 80)
+;                                         main-right
+;                                         (- (:upper-size 40)
+;                                            small-upper
+;                                            small-lower)))
+;                                  '((:name main-left)
+;                                    (:name main-right)
+;                                    (:name small-upper)
+;                                    (:name small-lower)))))
+   #+end_src
+
+** Color Theme
+   I use the [[https://github.com/juba/color-theme-tangotango][tangotango color theme]], but this theme doesn't work well when Emacs
+   is run from a terminal.  We only want to set this theme when we're in a
+   windowing system.
+
+   #+name: tangotango-conf
+   #+begin_src emacs-lisp
+     (req-package tangotango-theme
+                  :require color-theme
+                  :config
+                  (progn
+                    (when window-system
+                      (setq-default color-theme-load-all-themes nil)
+                      (setq-default color-theme-is-global nil)
+                      (load-theme 'tangotango t))))
+   #+end_src
+
+** Conveniences
+   Some Emacs functions want you to confirm with =yes= or =no=, and some just
+   want =y= or =n=.  We don't want to be bothered to remember which is which, so
+   we just make all of them =y=/=n= questions.
+
+   #+begin_src emacs-lisp
+     (defalias 'yes-or-no-p 'y-or-n-p)
+   #+end_src
+
+   We don't want Emacs to minimize with =C-z= (this is really annoying!)
+
+   #+begin_src emacs-lisp
+     (global-set-key (kbd "C-z") nil)
+   #+end_src
+
+   For congruency with =M-f= and =M-b=, we set =M-p= and =M-n= to move up and
+   down a paragraph, respectively.
+
+   #+begin_src emacs-lisp
+     (global-set-key "\M-p" (quote backward-paragraph))
+     (global-set-key "\M-n" (quote forward-paragraph))
+   #+end_src
+
+* Package Customizations
+** EasyPGP
+   :PROPERTIES:
+   :CUSTOM_ID: sec:easypgp
+   :END:
+
+   [[http://epg.sourceforge.jp/][EasyPGP]], which is bundled with Emacs, lets us easily encrypt and decrypt
+   files with GPG.
+
+   #+begin_src emacs-lisp
+     (req-package epa-file :config (epa-file-enable))
+   #+end_src
+
+** Auto Compression
+   Similarly, we want to use [[http://www.emacswiki.org/emacs/AutoCompressionMode][auto-compression-mode]] to allow us to automatically
+   compress and decompress files with =gzip= or =bzip2=.
+
+   #+begin_src emacs-lisp
+     (auto-compression-mode 1)
+     (setq dired-use-gzip-instead-of-compress t)
+   #+end_src
+
+** ERC
+   I use ERC as my primary IRC client.  By default, though, it doesn't know
+   where to connect and prompts me every time, so I set up =pn/erc= function
+   which connects to Freenode over TLS using my username, /pniedzielski/, as
+   well as connecting to the channels I frequent.
+
+   We want to store our authentication information in a separate
+   =~/.authinfo.gpg= file, so we tell ERC not to prompt us for a password (by
+   setting the =erc-prompt-for-password= variable to =nil=).
+
+   #+begin_src emacs-lisp
+     (req-package tls)
+     (req-package erc
+                  :requires tls
+                  :init (defun pn/erc ()
+                          "Connect to IRC using erc."
+                          (interactive)
+                          (erc-tls :server "irc.freenode.net"
+                                   :port "6697"
+                                   :nick "pniedzielski")
+                          (setq erc-autojoin-channels-alist
+                                '(("freenode.net"
+                                   "#hummstrumm"
+                                   "#opensourcecornell"
+                                   "#cipra"))))
+                  :config (setq erc-prompt-for-password nil))
+   #+end_src
+
+   After that, we set up the ERC modules I tend to use.
+
+   #+begin_src emacs-lisp
+     (req-package erc-notify :requires erc)
+     (req-package erc-ring :requires erc)
+     (req-package erc-match :requires erc)
+     (req-package notifications
+                  :requires erc
+                  :config (add-to-list 'erc-modules 'notifications))
+   #+end_src
+
+** Eshell
+
+   So that I don't have to remember the differences between GNU/Linux, Windows,
+   and BSD platforms that I use, I just tend to use =eshell=.
+
+   #+begin_src emacs-lisp
+     (defun eshell/clear ()
+       "Clear the eshell buffer."
+       (interactive)
+       (let ((inhibit-read-only t))
+         (erase-buffer)))
+     
+     (defun eshell/info (subject)
+       "Read the Info manual on SUBJECT."
+       (let ((buf (current-buffer)))
+         (Info-directory)
+         (let ((node-exists (ignore-errors (Info-menu subject))))
+           (if node-exists
+               0
+             ;; We want to switch back to *eshell* if the requested
+             ;; Info manual doesn't exist.
+             (switch-to-buffer buf)
+             (eshell-print (format "There is no Info manual on %s.\n"
+                                   subject))
+             1))))
+     
+     (defun eshell/perldoc (&rest args)
+       "Like `eshell/man', but invoke `perldoc'."
+       (funcall 'perldoc (apply 'eshell-flatten-and-stringify args)))
+     
+     
+     (req-package eshell
+                  :config (progn
+                            (setq eshell-save-history-on-exit t
+                                  eshell-hist-ignoredups t
+                                  eshell-cmpl-cycle-completions nil
+                                  eshell-scroll-to-bottom-on-output t
+                                  eshell-scroll-show-maximum-output t)))
+   #+end_src
+
+** Identica Mode
+   I use [[http://gnu.io/][GNU Social]] for microblogging, which was once known as Status.net and
+   whose biggest site was once Identi.ca.  Luckily, the old Emacs [[http://blog.gabrielsaldana.org/identica-mode-for-emacs/][identica-mode]]
+   still works with GNU Social, so I continue to use it.
+
+   #+begin_src emacs-lisp
+     (req-package identica-mode
+                  :requires netrc
+                  :init (progn
+                          (setq statusnet-server "micro.fragdev.com"
+                                identica-username "patrickniedzielski"
+                                statusnet-server-textlimit 1140
+                                identica-display-success-messages nil
+                                identica-enable-highlighting t
+                                identica-enable-striping nil))
+                  :config (progn
+                            (add-hook 'identica-mode-hook 'identica-icon-mode)
+                            (global-set-key "\C-cip"
+                                            'identica-update-status-interactive)
+                            (global-set-key "\C-cid"
+                                            'identica-direct-message-interactive)))
+   #+end_src
+
+** Auto Complete
+   [[https://github.com/auto-complete/auto-complete/][Auto Complete Mode]] displays a little popup window with completions for
+   commonly used modes.
+
+   #+begin_src emacs-lisp
+     (req-package auto-complete :config (ac-config-default))
+   #+end_src
+
+* Mode Customizations
+** Markdown Mode
+   Markdown support isn't included by default in Emacs, and Emacs doesn't
+   recognize files with the =.markdown= and =.md= extensions.  We use
+   [[http://jblevins.org/projects/markdown-mode/][markdown-mode]] by Jason Blevins and associate these extensions with it.
+
+   #+begin_src emacs-lisp
+     (req-package markdown-mode :mode "\\.md\\'")
+   #+end_src
+
+** Org Mode
+   [[http://orgmode.org/][org-mode]] is amazing.
+
+   #+begin_src emacs-lisp
+     (req-package org
+                  :mode "\\.org'"
+                  :init (progn (setq org-src-fontify-natively t)))
+   #+end_src
+
+   Using the [[https://github.com/punchagan/org2blog][org2blog]] package, you can even post to a Wordpress or XMLRPC blog
+   from Org mode.
+
+   #+begin_src emacs-lisp :tangle no
+;     (req-package org2blog)
+   #+end_src
+** CMake Mode
+   I use [[http://cmake.org][CMake]] very often (most of my projects use it as a build system), so
+   it's nice to have nice syntax highlighting for it.  The =cmake-mode= package
+   provides this.
+
+   #+begin_src emacs-lisp
+     (req-package cmake-mode)
+   #+end_src
+
+** YAML Mode
+   I also use YAML files quite often, so I use =yaml-mode=, which adds
+   highlighting and indentation to YAML files.
+
+   #+begin_src emacs-lisp
+     (req-package yaml-mode)
+   #+end_src
+
+** C++ Mode
+** Git Modes
+   Another nicety are the =git-modes=, which adds highlighting to various git
+   files, and has a nice git commit mode.
+
+   #+begin_src emacs-lisp
+     (req-package git-commit-mode)
+     (req-package git-rebase-mode)
+     (req-package gitconfig-mode)
+     (req-package gitignore-mode)
+     (req-package gitattributes-mode)
+   #+end_src
+
+* Finalize the Packages!
+  We're ready to finalize the packages to load.
+
+  #+begin_src emacs-lisp
+    (req-package-finish)
+  #+end_src
+
