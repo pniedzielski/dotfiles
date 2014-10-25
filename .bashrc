@@ -26,6 +26,10 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+export ALTERNATE_EDITOR=""
+export EDITOR="$HOME/bin/edit -t"
+export VISUAL="$HOME/bin/edit"
+
 PS1="\[\e[01;32m\]\u@\h\[\e[0m\]\[\e[00;37m\]:\[\e[0m\]\[\e[01;34m\]\W\[\e[0m\]\[\e[00;37m\](\$?)\\$ \[\e[0m\]"
 
 # If this is an xterm set the title to user@host:dir
