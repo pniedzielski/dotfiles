@@ -21,4 +21,5 @@
 (depends-on "req-package")
 (depends-on "tangotango-theme")
 (depends-on "tls")
+(depends-on "tramp")
 (depends-on "yaml-mode")

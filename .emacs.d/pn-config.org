@@ -244,6 +244,17 @@
    #+end_src
 
 * Package Customizations
+** Tramp
+   [[http://www.gnu.org/software/tramp/][TRAMP]] is an Emacs extension that allows you to access remote files from a
+   local Emacs instance.
+
+   By default, we want to use SSH, which is faster than the default SCP
+   protocol.
+
+   #+begin_src emacs-lisp
+     (req-package tramp :config (progn
+                                   (setq tramp-default-method "ssh")))
+   #+end_src
 ** EasyPGP
    :PROPERTIES:
    :CUSTOM_ID: sec:easypgp
