@@ -2,6 +2,7 @@
 (source melpa)
 (source org)
 
+(depends-on "auctex")
 (depends-on "auto-complete")
 (depends-on "cask")
 (depends-on "cmake-mode")

@@ -428,6 +428,45 @@
      (req-package yaml-mode)
    #+end_src
 
+** AUCTeX Mode
+   AUCTeX mode is a major mode and set of minor modes for editing
+   LaTeX documents in Emacs.
+
+   #+begin_src emacs-lisp
+     (req-package auctex
+                  :init (progn
+   #+end_src
+
+   The following makes AUCTeX automatically aware of style files and
+   multi-file documents (taken from the AUCTeX manual):
+   #+begin_src emacs-lisp
+                         (setq TeX-auto-save t)
+                         (setq TeX-parse-self t)
+                         (setq-default TeX-master nil)
+   #+end_src
+   
+   We also want spell-checking when in LaTeX, as well as auto filling
+   at 80 columns.
+
+   #+begin_src emacs-lisp
+                         (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+                         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+   #+end_src
+
+   I use LaTeX for math very frequently, so I want to enable the math
+   minor mode as well.
+
+   #+begin_src emacs-lisp
+                         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+   #+end_src
+
+   Finally, I also use bibliographies in LaTeX often, so I want reftex
+   as well.
+
+   #+begin_src emacs-lisp
+                         (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+                         (setq reftex-plug-into-AUCTeX t)))
+   #+end_src
 ** C++ Mode
 ** Git Modes
    Another nicety are the =git-modes=, which adds highlighting to various git
