@@ -425,7 +425,7 @@
    highlighting and indentation to YAML files.
 
    #+begin_src emacs-lisp
-     (req-package yaml-mode)
+     (req-package yaml-mode :mode "\\.yml\\'")
    #+end_src
 
 ** AUCTeX Mode
