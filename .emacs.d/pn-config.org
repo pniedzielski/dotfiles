@@ -433,7 +433,8 @@
    LaTeX documents in Emacs.
 
    #+begin_src emacs-lisp
-     (req-package auctex
+     (req-package tex-site
+                  :ensure auctex
                   :init (progn
    #+end_src
 
