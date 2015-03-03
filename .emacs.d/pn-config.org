@@ -290,17 +290,9 @@
      (req-package tls)
      (req-package erc
                   :requires tls
-                  :init (defun pn/erc ()
-                          "Connect to IRC using erc."
-                          (interactive)
-                          (erc-tls :server "irc.freenode.net"
-                                   :port "6697"
-                                   :nick "pniedzielski")
-                          (setq erc-autojoin-channels-alist
-                                '(("freenode.net"
-                                   "#hummstrumm"
-                                   "#opensourcecornell"
-                                   "#cipra"))))
+                  :init (erc-tls :server "irc.pniedzielski.net"
+                                 :port 7778
+                                 :nick "pniedzielski")
                   :config (setq erc-prompt-for-password nil))
    #+end_src
 
