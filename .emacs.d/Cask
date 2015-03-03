@@ -20,6 +20,7 @@
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "req-package")
+(depends-on "scss-mode")
 (depends-on "tangotango-theme")
 (depends-on "tls")
 (depends-on "tramp")

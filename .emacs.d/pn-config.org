@@ -316,7 +316,6 @@
    #+end_src
 
 ** Eshell
-
    So that I don't have to remember the differences between GNU/Linux, Windows,
    and BSD platforms that I use, I just tend to use =eshell=.
 
@@ -469,6 +468,20 @@
                          (setq reftex-plug-into-AUCTeX t)))
    #+end_src
 ** C++ Mode
+** SCSS Mode
+   SCSS is a stylesheet language that combines the features of SASS with the
+   syntax of CSS.
+
+   #+begin_src emacs-lisp
+     (req-package scss-mode :mode "\\.scss\\'"
+   #+end_src
+
+   We don't want to compile SCSS whenever we save, which is the default, so we
+   turn this off:
+
+   #+begin_src emacs-lisp
+                  :config (setq-default scss-compile-at-save nil))
+   #+end_src
 ** Git Modes
    Another nicety are the =git-modes=, which adds highlighting to various git
    files, and has a nice git commit mode.
