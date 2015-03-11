@@ -1,5 +1,5 @@
-alias em="emacsclient --alternate-editor='' -n$@"
-alias emtty="emacsclient --alternate-editor='' -t $@"
-alias emnew="emacsclient --alternate-editor='' -c -n $@"
+alias em="emacsclient --alternate-editor='vi' -n$@"
+alias emtty="emacsclient --alternate-editor='vi' -t $@"
+alias emnew="emacsclient --alternate-editor='vi' -c -n $@"
 alias ls="ls -h --color"
 alias ll="ls -lv --group-directories-first"
