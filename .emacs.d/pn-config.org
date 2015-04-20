@@ -116,8 +116,8 @@
    Set my name and (public, personal) email address.
 
    #+begin_src emacs-lisp
-     (setq user-full-name "Patrick M. Niedzielski"
-           user-mail-address "PatrickNiedzielski@gmail.com")
+     (setq user-full-name    "Patrick M. Niedzielski"
+           user-mail-address "patrick@pniedzielski.net")
    #+end_src
 
    For passwords, etc, we store them in an =~/.authinfo.gpg= file.  The GPG
