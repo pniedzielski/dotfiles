@@ -1,6 +1,6 @@
 [user]
 	name = Patrick M. Niedzielski
-	email = PatrickNiedzielski@gmail.com
+	email = patrick@pniedzielski.net
 	signingkey = DEBFA176
 [core]
 	editor = emacs -nw
@@ -21,3 +21,5 @@
 [merge]
 	conflictstyle = diff3
 	log = true
+[clangFormat]
+	binary = clang-format-3.7
