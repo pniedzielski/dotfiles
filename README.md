@@ -1,13 +1,14 @@
 pniedzielski's Dotfiles
 =======================
-Copyright © 2014, Patrick M. Niedzielski.  This code is licensed under
-the GNU GPLv3+.  Please see the `COPYING` file for details.
+Copyright © 2014–2015, Patrick M. Niedzielski.  This code is
+licensed under the GNU GPLv3+.  Please see the `COPYING` file for
+details.
 
-To bootstrap a system with these dotfiles, just run the following
-command from the root of your source tree:
+To bootstrap a system with these dotfiles, make sure you have
+[GNU Stow][1] installed.  Then, for each package you want to install,
+run
 
-    ./bootstrap.sh
+    stow -t ~ -S packages names separated by spaces
 
-This will symlink the dotfiles to your home directory (backing up any
-that already exist) and install Cask and all the required Emacs
-packages.
+Additionally, for Emacs, you'll want to use the
+`./emacs/.emacs.d/bootstrap.sh` script to install necessary packages.
