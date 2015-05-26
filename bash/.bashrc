@@ -56,4 +56,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Store all user scripts in ~/.local/bin
+export PATH="$HOME/.local/bin:$PATH"
+
 export PATH="$HOME/.cask/bin:$PATH"
