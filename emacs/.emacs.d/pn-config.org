@@ -1,6 +1,6 @@
 +TITLE:      Emacs 24 Configuration File
 #+AUTHOR:    Patrick Michael Niedzielski
-#+EMAIL:     PatrickNiedzielski@gmail.com
+#+EMAIL:     patrick@pniedzielski.net
 
 #+BABEL: :cache yes
 #+LATEX_HEADER: \usepackage{parskip}
