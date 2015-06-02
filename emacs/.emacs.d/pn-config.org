@@ -243,6 +243,14 @@
      (global-set-key "\M-n" (quote forward-paragraph))
    #+end_src
 
+   Finally, we turn on [[https://masteringemacs.org/article/introduction-to-ido-mode][ido-mode]], which is excellent.
+
+   #+begin_src emacs-lisp
+     (setq ido-enable-flex-matching t)
+     (setq ido-everywhere t)
+     (ido-mode 1)
+   #+end_src
+
 * Package Customizations
 ** Tramp
    [[http://www.gnu.org/software/tramp/][TRAMP]] is an Emacs extension that allows you to access remote files from a
