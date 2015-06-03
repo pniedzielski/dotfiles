@@ -404,11 +404,32 @@
                   :init (progn (setq org-src-fontify-natively t)))
    #+end_src
 
-   Using the [[https://github.com/punchagan/org2blog][org2blog]] package, you can even post to a Wordpress or XMLRPC blog
-   from Org mode.
+   I use =org-agenda= to manage my todos and schedule, so we want to
+   customize that.  First, we want to tell it where I keep my todo
+   files:
 
-   #+begin_src emacs-lisp :tangle no
-;     (req-package org2blog)
+   #+begin_src emacs-lisp
+     (setq-default org-agenda-files '("~/Dokumentoj/todo/"))
+   #+end_src
+
+   There are some annoying default settings for the agenda.  In
+   particular, it screws up my frame layout by default, and really
+   what I want is to just show the agenda in the current buffer.
+
+   #+begin_src emacs-lisp
+     (setq-default org-agenda-window-setup 'current-window)
+   #+end_src
+
+   Let's bind it to the sequence =C-c a=.
+
+   #+begin_src emacs-lisp
+     (global-set-key (kbd "C-c a") 'org-agenda)
+   #+end_src
+
+   Finally, show the todo list when Emacs starts.
+
+   #+begin_src emacs-lisp
+     (org-agenda nil "t")
    #+end_src
 ** CMake Mode
    I use [[http://cmake.org][CMake]] very often (most of my projects use it as a build system), so
