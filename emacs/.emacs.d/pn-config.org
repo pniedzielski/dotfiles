@@ -385,6 +385,28 @@
      (req-package auto-complete :config (ac-config-default))
    #+end_src
 
+** Magit
+   [[http://magit.vc/][Magit]] is an Emacs interface to git.  Although I prefer using the
+   git porcelain directly, sometimes using Magit is nicer, easier, or
+   quicker.  For ease of access, I have the main Magit command,
+   =magit-status=, bound to =C-c g=.
+
+   #+begin_src emacs-lisp
+     (req-package magit
+       :init (setq magit-last-seen-setup-instructions "1.4.0")
+       :bind ("C-c g" . magit-status))
+   #+end_src
+
+   See also the [[*Git%20Modes][Git Modes]] configuration, especially the commit mode
+   and rebase mode.
+
+   Additionally, we want to configure [[*Org%20Mode][our Org Mode]] to allow links to
+   git repositories through Magit.
+
+   #+begin_src emacs-lisp
+     (req-package org-magit :require (magit org))
+   #+end_src
+
 * Mode Customizations
 ** Markdown Mode
    Markdown support isn't included by default in Emacs, and Emacs doesn't
