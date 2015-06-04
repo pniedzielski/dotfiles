@@ -2,8 +2,6 @@
 	name = Patrick M. Niedzielski
 	email = patrick@pniedzielski.net
 	signingkey = DEBFA176
-[core]
-	editor = emacs -nw
 [color]
 	diff = auto
 	status = auto
