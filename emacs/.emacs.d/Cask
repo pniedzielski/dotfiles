@@ -27,4 +27,5 @@
 (depends-on "tangotango-theme")
 (depends-on "tls")
 (depends-on "tramp")
+(depends-on "window-number")
 (depends-on "yaml-mode")

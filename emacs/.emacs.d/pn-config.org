@@ -184,23 +184,14 @@
      (column-number-mode 1)
    #+end_src
 
-   For my main Emacs window, I use a three column layout.
+   Instead of the standard =C-x o= behavior, we want to bind this to
+   =window-number= mode, which gives a number to each window and
+   prompts you for that number when switching.
 
    #+begin_src emacs-lisp
-;     (req-package window-layout
-;                  :config (setq default-wm
-;                                (wlf:layout
-;                                  '(| (:left-size 80)
-;                                      main-left
-;                                      (| (:left-size 80)
-;                                         main-right
-;                                         (- (:upper-size 40)
-;                                            small-upper
-;                                            small-lower)))
-;                                  '((:name main-left)
-;                                    (:name main-right)
-;                                    (:name small-upper)
-;                                    (:name small-lower)))))
+     (req-package window-number
+       :bind   ("C-x o" . window-number-switch)
+       :config (window-number-mode 1))
    #+end_src
 
 ** Color Theme
