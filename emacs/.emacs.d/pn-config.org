@@ -170,6 +170,14 @@
        (funcall mode 0))
      #+end_src
 
+   My desktop environment uses the mouse to select which X11 window
+   has keyboard input focus.  I'd like this to carry over into Emacs,
+   where the mouse also selects which Emacs window has focus.
+
+   #+begin_src emacs-lisp
+     (setq-default mouse-autoselect-window t)
+   #+end_src
+
    We also don't want to see a startup screen.
 
    #+begin_src emacs-lisp
