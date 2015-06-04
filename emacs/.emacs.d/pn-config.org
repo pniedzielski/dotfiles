@@ -432,6 +432,7 @@
      (req-package org
        :mode "\\.org'"
        :init (progn (setq org-src-fontify-natively t
+                          org-log-done             t
                           org-agenda-files         '("~/Dokumentoj/todo/")
                           org-agenda-window-setup  'curent-window))
        :bind ("C-c a" . org-agenda))
