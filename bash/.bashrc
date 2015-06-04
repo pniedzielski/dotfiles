@@ -26,9 +26,16 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+# Set the default editor.  We want the behavior to be "open a new
+# buffer for the existing Emacs session.  If that session does not
+# exist, open Emacs in daemon mode and then open a terminal frame
+# connection to it."  Setting $VISUAL and $EDITOR accomplishes the
+# first part, and setting $ALTERNATIVE_EDITOR to an empty string
+# accomplishes the second part
+# (http://stuff-things.net/2014/12/16/working-with-emacsclient/).
+export EDITOR="emacsclient"
+export VISUAL="emacsclient"
 export ALTERNATE_EDITOR=""
-export EDITOR="$HOME/bin/edit -t"
-export VISUAL="$HOME/bin/edit"
 
 PS1="\[\e[01;32m\]\u@\h\[\e[0m\]\[\e[00;37m\]:\[\e[0m\]\[\e[01;34m\]\W\[\e[0m\]\[\e[00;37m\](\$?)\\$ \[\e[0m\]"
 
