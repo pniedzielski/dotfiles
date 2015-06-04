@@ -6,6 +6,7 @@
 (depends-on "auto-complete")
 (depends-on "cask")
 (depends-on "cmake-mode")
+(depends-on "cperl-mode")
 (depends-on "eshell")
 (depends-on "erc")
 (depends-on "git-commit-mode")

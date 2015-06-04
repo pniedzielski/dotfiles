@@ -502,6 +502,24 @@
                          (setq reftex-plug-into-AUCTeX t)))
    #+end_src
 ** C++ Mode
+** CPerl Mode
+   CPerl mode is a very nice mode for editing Perl 5 *and* Perl 6
+   code!  By default, though, Emacs uses its default =perl-mode=,
+   which is less very nice.
+
+   #+begin_src emacs-lisp
+     (req-package cperl-mode
+       :init   (progn (setq cperl-invalid-face               nil
+                            cperl-indent-level               4
+                            cperl-close-paren-offset         -4
+                            cperl-continued-statement-offset 4
+                            cperl-indent-parens-as-block     t
+                            cperl-tab-always-indent          t)
+                      (defalias 'perl-mode 'cperl-mode)))
+   #+end_src
+
+   In the future, I may look into [[https://github.com/hinrik/perl6-mode][perl6-mode]] instead.  Also,
+   [[https://github.com/hinrik/flycheck-perl6][flycheck-perl6]] looks interesting.
 ** SCSS Mode
    SCSS is a stylesheet language that combines the features of SASS with the
    syntax of CSS.
