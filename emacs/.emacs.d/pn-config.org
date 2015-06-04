@@ -235,6 +235,17 @@
      (global-set-key (kbd "C-z") nil)
    #+end_src
 
+   Tabs in general are evil for indentation, but the way Emacs uses
+   them (using tabs just as a replacement for every 8 consecutive
+   spaces, not using them semantically) is even worse.  We turn tabs
+   indent off by default.  There are very few times when we'll need
+   them anyway, and it can be turned back on locally to a project, a
+   file, or a buffer.
+
+   #+begin_src emacs-lisp
+     (setq-default indent-tabs-mode nil)
+   #+end_src
+
    For congruency with =M-f= and =M-b=, we set =M-p= and =M-n= to move up and
    down a paragraph, respectively.
 
