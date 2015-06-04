@@ -297,7 +297,7 @@
    #+begin_src emacs-lisp
      (req-package tls)
      (req-package erc
-                  :requires tls
+                  :require tls
                   :init (erc-tls :server "irc.pniedzielski.net"
                                  :port 7778
                                  :nick "pniedzielski")
@@ -307,11 +307,11 @@
    After that, we set up the ERC modules I tend to use.
 
    #+begin_src emacs-lisp
-     (req-package erc-notify :requires erc)
-     (req-package erc-ring :requires erc)
-     (req-package erc-match :requires erc)
+     (req-package erc-notify :require erc)
+     (req-package erc-ring :require erc)
+     (req-package erc-match :require erc)
      (req-package notifications
-                  :requires erc
+                  :require erc
                   :config (add-to-list 'erc-modules 'notifications))
    #+end_src
 
@@ -361,7 +361,7 @@
 
    #+begin_src emacs-lisp
      (req-package identica-mode
-                  :requires netrc
+                  :require netrc
                   :init (progn
                           (setq statusnet-server "micro.fragdev.com"
                                 identica-username "patrickniedzielski"
