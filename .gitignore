@@ -5,7 +5,8 @@ emacs/.emacs.d/backups
 emacs/.emacs.d/elpa
 emacs/.emacs.d/auto-save-list
 emacs/.emacs.d/ac-comphist.dat
-emacs/.emacs.d/eshell/
+emacs/.emacs.d/eshell/*
+!emacs/.emacs.d/eshell/alias
 emacs/.emacs.d/session.*
 emacs/.emacs.d/#*
 emacs/.emacs.d/ido.last

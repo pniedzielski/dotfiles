@@ -199,9 +199,42 @@
    #+begin_src emacs-lisp
      (req-package window-number
        :bind   ("C-x o" . window-number-switch)
-       :config (window-number-mode 1))
+       :config (window-number-mode 1)
    #+end_src
 
+   With =window-number= installed, we can add a useful function that
+   switches to a given window and executes a given function.
+
+   #+begin_src emacs-lisp
+               (defun do-in-window-number (n fun)
+                 "Executes the given FUN in window N."
+                 (let ((oldn (window-number)))
+                   (window-number-select n)
+                   (funcall fun)
+                   (window-number-select oldn)))
+   #+end_src
+
+   Finally, we can define a function =find-file-in-window=, which we
+   can bind to =C-c f=.
+
+   #+begin_src emacs-lisp
+               (defun find-file-in-window (filename n)
+                 "Edit file FILENAME in window N.
+
+Like \\[find-file] (which see), but opens the buffer in window I.
+
+Interactively, the default if you just type RET is the current directory,
+but the visited file name is available through the minibuffer history:
+type M-n to pull it into the minibuffer."
+                 (interactive
+                  (list (read-file-name "Find file: " nil default-directory
+                                        (confirm-nonexistent-file-or-buffer))
+                        (read-number "In window: ")))
+                 (let ((path (expand-file-name filename)))
+                   (do-in-window-number n (lambda () (find-file path)))))
+
+               (global-set-key (kbd "C-c f") 'find-file-in-window))
+   #+end_src
 ** Color Theme
    I use the [[https://github.com/juba/color-theme-tangotango][tangotango color theme]], but this theme doesn't work well when Emacs
    is run from a terminal.  We only want to set this theme when we're in a
