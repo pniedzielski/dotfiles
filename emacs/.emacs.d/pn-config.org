@@ -440,6 +440,25 @@ type M-n to pull it into the minibuffer."
                (bind-key "C-TAB" 'clang-format-region c++-mode-map)
                (bind-key "C-TAB" 'clang-format-region objc-mode-map))
    #+end_src
+** Flycheck
+   [[http://www.flycheck.org/][Flycheck]] is a replacement for the built-in =flymake-mode=.  It
+   automatically checks the syntax and lints the current source code
+   when the buffer is saved, when a newline is entered, and when the
+   buffer is changed.
+
+   #+begin_src emacs-lisp
+     (req-package flycheck
+       :init (setq-default flycheck-clang-pedantic          t
+                           flycheck-gcc-pedantic            t
+                           flycheck-clang-warnings          '("all")
+                           flycheck-gcc-warnings            '("all")
+                           flycheck-clang-language-standard "c++14"
+                           flycheck-gcc-language-standard   "c++14"
+                           flycheck-cppcheck-checks
+                           '("warning" "style" "performance" "portability"
+                             "information" "missingInclude"))
+       :config (add-hook 'after-init-hook #'global-flycheck-mode))
+   #+end_src
 ** Magit
    [[http://magit.vc/][Magit]] is an Emacs interface to git.  Although I prefer using the
    git porcelain directly, sometimes using Magit is nicer, easier, or

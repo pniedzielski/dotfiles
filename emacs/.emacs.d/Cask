@@ -10,6 +10,7 @@
 (depends-on "cperl-mode")
 (depends-on "eshell")
 (depends-on "erc")
+(depends-on "flycheck")
 (depends-on "git-commit-mode")
 (depends-on "git-rebase-mode")
 (depends-on "gitconfig-mode")
