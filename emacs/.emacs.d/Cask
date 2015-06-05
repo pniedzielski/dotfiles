@@ -7,6 +7,8 @@
 (depends-on "cask")
 (depends-on "clang-format")
 (depends-on "cmake-mode")
+(depends-on "company")
+(depends-on "company-auctex")
 (depends-on "cperl-mode")
 (depends-on "eshell")
 (depends-on "erc")

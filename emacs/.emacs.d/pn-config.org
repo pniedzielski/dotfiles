@@ -420,14 +420,21 @@ type M-n to pull it into the minibuffer."
                                             'identica-direct-message-interactive)))
    #+end_src
 
-** Auto Complete
-   [[https://github.com/auto-complete/auto-complete/][Auto Complete Mode]] displays a little popup window with completions for
+** Company Mode
+   [[http://company-mode.github.io/][Company Mode]] displays a little popup window with completions for
    commonly used modes.
 
    #+begin_src emacs-lisp
-     (req-package auto-complete :config (ac-config-default))
+     (req-package company
+       :config (add-hook 'after-init-hook 'global-company-mode))
    #+end_src
 
+   We turn on company-mode completion for AUCTeX.
+   #+begin_src emacs-lisp
+     (req-package company-auctex
+       :require (company tex-site)
+       :config (company-auctex-init))
+   #+end_src
 ** Clang Format
    We can integrate =clang-format= with Emacs using this package.  We
    set the keybinding =C-TAB= in all supported modes (C, C++,
