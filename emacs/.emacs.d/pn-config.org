@@ -428,6 +428,18 @@ type M-n to pull it into the minibuffer."
      (req-package auto-complete :config (ac-config-default))
    #+end_src
 
+** Clang Format
+   We can integrate =clang-format= with Emacs using this package.  We
+   set the keybinding =C-TAB= in all supported modes (C, C++,
+   Objective-C) to run clang-format on the selected region.
+
+   #+begin_src emacs-lisp
+     (req-package clang-format
+       :init (require 'cc-mode)
+       :config (bind-key "C-TAB" 'clang-format-region c-mode-map)
+               (bind-key "C-TAB" 'clang-format-region c++-mode-map)
+               (bind-key "C-TAB" 'clang-format-region objc-mode-map))
+   #+end_src
 ** Magit
    [[http://magit.vc/][Magit]] is an Emacs interface to git.  Although I prefer using the
    git porcelain directly, sometimes using Magit is nicer, easier, or

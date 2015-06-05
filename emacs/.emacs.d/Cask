@@ -5,6 +5,7 @@
 (depends-on "auctex")
 (depends-on "auto-complete")
 (depends-on "cask")
+(depends-on "clang-format")
 (depends-on "cmake-mode")
 (depends-on "cperl-mode")
 (depends-on "eshell")
