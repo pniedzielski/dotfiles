@@ -545,6 +545,33 @@ type M-n to pull it into the minibuffer."
                          (setq reftex-plug-into-AUCTeX t)))
    #+end_src
 ** C++ Mode
+** Doxymacs Mode
+   [[http://doxymacs.sourceforge.net/][Doxymacs]] is an incredibly little minor-mode for inserting and
+   fontifying Doxygen comments in C/C++, as well as jumping to
+   generated documentation in a web browser.  Unfortunately, it's no
+   longer maintained, so it doesn't know about all the new features of
+   Doxygen, like Markdown support and some of the new tags.  Still,
+   it's nice to have around.
+
+   Doxymacs isn't in MELPA or ELPA, so we have to include it here.
+   Luckily, Debian includes it.  In the future, we may want to include
+   it (or take over maintaining it).  All this means is that we can't
+   use =req-package= here.
+
+   #+begin_src emacs-lisp
+     (require 'doxymacs)
+   #+end_src
+
+   We turn on the Doxymacs minor mode and fontification for all
+   C-derived and similar languages.
+
+   #+begin_src emacs-lisp
+     (add-hook 'c-mode-common-hook
+       (lambda ()
+         (doxymacs-mode t)
+         (doxymacs-font-lock)))
+   #+end_src
+
 ** CPerl Mode
    CPerl mode is a very nice mode for editing Perl 5 *and* Perl 6
    code!  By default, though, Emacs uses its default =perl-mode=,
