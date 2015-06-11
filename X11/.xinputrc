@@ -1,3 +1,3 @@
-# im-config(8) generated on Thu, 30 Apr 2015 17:37:06 +0000
-run_im ibus
-# im-config signature: b424193d4d9e87ed2a097b5221a6c36b  -
+# im-config(8) generated on Wed, 10 Jun 2015 14:33:24 +0000
+run_im fcitx
+# im-config signature: 333f521bfd2202a64e329614567e37ce  -

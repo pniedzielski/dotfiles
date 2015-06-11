@@ -37,6 +37,12 @@ export EDITOR="emacsclient"
 export VISUAL="emacsclient"
 export ALTERNATE_EDITOR=""
 
+# Set up FCITX
+export XIM_PROGRAM=fcitx
+export XIM=fcitx
+# Below is required to make Emacs work
+export LC_CTYPE="zh_CN.utf8"
+
 PS1="\[\e[01;32m\]\u@\h\[\e[0m\]\[\e[00;37m\]:\[\e[0m\]\[\e[01;34m\]\W\[\e[0m\]\[\e[00;37m\](\$?)\\$ \[\e[0m\]"
 
 # If this is an xterm set the title to user@host:dir
