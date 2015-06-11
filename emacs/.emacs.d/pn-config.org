@@ -295,6 +295,24 @@ type M-n to pull it into the minibuffer."
    #+end_src
 
 * Package Customizations
+** Fcitx
+   [[https://fcitx-im.org/wiki/Fcitx][Fcitx]] is an input method framework like IBus for Linux and UNIX
+   systems.  There is a nice Emacs package that disables it for
+   multi-key combinations like =C-x b=.
+   
+   #+BEGIN_SRC emacs-lisp :tangle no
+     (req-package fcitx :config (fcitx-default-setup))
+   #+END_SRC
+
+   Unfortunately, the current version of it requires =evil-mode=,
+   which I don't use.  I have a patched version that I'm submitting,
+   but until it is in, we have to include it separately.
+
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'load-path "~/.emacs.d/")
+     (require 'fcitx)
+     (fcitx-default-setup)
+   #+END_SRC
 ** Tramp
    [[http://www.gnu.org/software/tramp/][TRAMP]] is an Emacs extension that allows you to access remote files from a
    local Emacs instance.
