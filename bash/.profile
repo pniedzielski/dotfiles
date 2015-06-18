@@ -9,11 +9,15 @@
 #umask 022
 
 # Make sure the XDG directories are set correctly.
+# See <https://theos.kyriasis.com/~kyrias/basedir-spec.html>
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_BIN_HOME="$HOME/.local/bin"
+export XDG_LIB_HOME="$HOME/.local/lib"
 
-# Set the textmf cache directory to be in a less intrusive place.
+# The following environment variables make certain applications play
+# more nicely with XDG directories.
 export TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
 
 # if running bash
