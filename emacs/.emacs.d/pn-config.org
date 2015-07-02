@@ -486,13 +486,6 @@ type M-n to pull it into the minibuffer."
        :bind ("C-c g" . magit-status))
    #+end_src
 
-   Additionally, we want to configure [[*Org%20Mode][our Org Mode]] to allow links to
-   git repositories through Magit.
-
-   #+begin_src emacs-lisp
-     (req-package org-magit :require (magit org))
-   #+end_src
-
 * Mode Customizations
 ** Markdown Mode
    Markdown support isn't included by default in Emacs, and Emacs doesn't
