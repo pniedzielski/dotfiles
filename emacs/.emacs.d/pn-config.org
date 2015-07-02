@@ -252,6 +252,14 @@ type M-n to pull it into the minibuffer."
                       (load-theme 'tangotango t))))
    #+end_src
 
+** Unicode
+   The [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package by Roland Walker fixes problems Emacs has
+   with inserting large amonuts of extra leading for a line with a
+   Unicode character not in the default font.
+
+   #+BEGIN_SRC emacs-lisp
+     (req-package unicode-fonts :config (unicode-fonts-setup))
+   #+END_SRC
 ** Conveniences
    Some Emacs functions want you to confirm with =yes= or =no=, and some just
    want =y= or =n=.  We don't want to be bothered to remember which is which, so
