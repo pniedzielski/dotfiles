@@ -486,9 +486,6 @@ type M-n to pull it into the minibuffer."
        :bind ("C-c g" . magit-status))
    #+end_src
 
-   See also the [[*Git%20Modes][Git Modes]] configuration, especially the commit mode
-   and rebase mode.
-
    Additionally, we want to configure [[*Org%20Mode][our Org Mode]] to allow links to
    git repositories through Magit.
 
@@ -652,11 +649,9 @@ type M-n to pull it into the minibuffer."
    #+end_src
 ** Git Modes
    Another nicety are the =git-modes=, which adds highlighting to various git
-   files, and has a nice git commit mode.
+   files.
 
    #+begin_src emacs-lisp
-     (req-package git-commit-mode)
-     (req-package git-rebase-mode)
      (req-package gitconfig-mode)
      (req-package gitignore-mode)
      (req-package gitattributes-mode)
