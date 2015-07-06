@@ -18,6 +18,7 @@ export XDG_LIB_HOME="$HOME/.local/lib"
 
 # The following environment variables make certain applications play
 # more nicely with XDG directories.
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export TEXMFVAR="$XDG_CACHE_HOME/texmf-var"
 
 # if running bash
