@@ -1,0 +1,138 @@
+# -*- conf -*-
+
+###############################################################################
+#                                      PERSONAL EMAIL (mail.pniedzielski.net) #
+###############################################################################
+
+
+IMAPAccount              personal
+Host                     mail.pniedzielski.net
+User                     patrick
+PassCmd                  "pass mail/personal"
+RequireSSL               yes
+UseTLSv1.2               yes
+CertificateFile          ~/.local/share/ssl/certs/mail.pniedzielski.net.pem
+
+IMAPStore                personal-remote
+Account                  personal
+
+MaildirStore             personal-local
+Path                     ~/Retpoŝtoj/persona/
+Inbox                    ~/Retpoŝtoj/persona/Inbox
+
+Channel                  personal
+Master                   :personal-remote:
+Slave                    :personal-local:
+Patterns                 *
+Create                   Both
+SyncState                *
+
+
+###############################################################################
+#                                              CORNELL EMAIL (imap.gmail.com) #
+###############################################################################
+
+
+IMAPAccount              cornell
+Host                     imap.gmail.com
+User                     pmn25@cornell.edu
+PassCmd                  "pass mail/cornell"
+UseIMAPS                 yes
+RequireSSL               yes
+UseTLSv1.2               yes
+
+IMAPStore                cornell-remote
+Account                  cornell
+
+MaildirStore             cornell-local
+Path                     ~/Retpoŝtoj/cornell/
+Inbox                    ~/Retpoŝtoj/cornell/Inbox
+
+Channel                  cornell-default
+Master                   :cornell-remote:
+Slave                    :cornell-local:
+Patterns                 * ![Gmail]* !Sent !Drafts !Junk !Trash
+Create                   Both
+SyncState                *
+
+Channel                  cornell-sent
+Master                   :cornell-remote:"[Gmail]/Sent Mail"
+Slave                    :cornell-local:Sent
+SyncState                *
+
+Channel                  cornell-drafts
+Master                   :cornell-remote:"[Gmail]/Drafts"
+Slave                    :cornell-local:Drafts
+SyncState                *
+
+Channel                  cornell-junk
+Master                   :cornell-remote:"[Gmail]/Spam"
+Slave                    :cornell-local:Junk
+SyncState                *
+
+Channel                  cornell-trash
+Master                   :cornell-remote:"[Gmail]/Trash"
+Slave                    :cornell-local:Trash
+SyncState                *
+
+Group                    cornell
+Channel                  cornell-default
+Channel                  cornell-sent
+Channel                  cornell-drafts
+Channel                  cornell-junk
+Channel                  cornell-trash
+
+
+###############################################################################
+#                                                      GMAIL (imap.gmail.com) #
+###############################################################################
+
+
+IMAPAccount              gmail
+Host                     imap.gmail.com
+User                     PatrickNiedzielski@gmail.com
+PassCmd                  "pass mail/gmail"
+UseIMAPS                 yes
+RequireSSL               yes
+UseTLSv1.2               yes
+
+IMAPStore                gmail-remote
+Account                  gmail
+
+MaildirStore             gmail-local
+Path                     ~/Retpoŝtoj/gmail/
+Inbox                    ~/Retpoŝtoj/gmail/Inbox
+
+Channel                  gmail-default
+Master                   :gmail-remote:
+Slave                    :gmail-local:
+Patterns                 * ![Gmail]* !Sent !Drafts !Junk !Trash
+Create                   Both
+SyncState                *
+
+Channel                  gmail-sent
+Master                   :gmail-remote:"[Gmail]/Sent Mail"
+Slave                    :gmail-local:Sent
+SyncState                *
+
+Channel                  gmail-drafts
+Master                   :gmail-remote:"[Gmail]/Drafts"
+Slave                    :gmail-local:Drafts
+SyncState                *
+
+Channel                  gmail-junk
+Master                   :gmail-remote:"[Gmail]/Spam"
+Slave                    :gmail-local:Junk
+SyncState                *
+
+Channel                  gmail-trash
+Master                   :gmail-remote:"[Gmail]/Trash"
+Slave                    :gmail-local:Trash
+SyncState                *
+
+Group                    gmail
+Channel                  gmail-default
+Channel                  gmail-sent
+Channel                  gmail-drafts
+Channel                  gmail-junk
+Channel                  gmail-trash
