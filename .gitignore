@@ -11,5 +11,3 @@ emacs/.emacs.d/session.*
 emacs/.emacs.d/#*
 emacs/.emacs.d/ido.last
 emacs/.emacs.d/kkcrc
-gpg/.config/gnupg/*
-!gpg/.config/gnupg/gpg.conf
